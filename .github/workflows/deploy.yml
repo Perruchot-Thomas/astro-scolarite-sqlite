@@ -25,6 +25,8 @@ jobs:
 
           script: |
             set -e
+            export BUN_INSTALL="$HOME/.bun"
+            export PATH="$BUN_INSTALL/bin:$PATH"
 
             echo "======================================"
             echo "Début du déploiement"
@@ -33,10 +35,10 @@ jobs:
             cd /var/www/scolarite/astro-scolarite-sqlite
 
             echo "Mise à jour du code..."
-            git pull origin
+            git pull origin main
             
             echo "Installation des dépendances..."
-            bun ci
+            bun install --frozen-lockfile
 
             echo "Compilation Astro..."
             bun run --bun build
